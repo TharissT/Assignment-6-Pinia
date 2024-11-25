@@ -4,33 +4,45 @@
 
 <template> 
     <body>
-        <div class="topnav">
-            <a class="active" href="#home">Home</a>
-            <a href="#news">New Content</a>
-            <a href="#contact">Who's Watching</a>
-            <a href="#about">Settings</a>
-        </div>
         <div class="herosection">
             <img src="/src/assets/cinema.jpg" alt="Hero Image" class="hero-section">
-        <div class="myherosection">Welcome To BlockFlix</div>
         </div>
+        <div class="my-hero-section">Welcome To BlockFlix </div>
+
             <div class="collage">
                 <img src="/src/assets/collage.jpg" alt="Collage" class="collage">
             <div class="my-collage"> Unlimited stories one destination </div>
-        </div>
-        <div class="signbuttons">
-    <button type="button" onclick="alert('Hello, enter your account details!')">Sign In</button>
-    <button type="button" onclick="alert('Dont have an account? Sign Up Now!')">Sign Up</button>
         </div>
     </body>
 </template>
 
 <style scoped>
 
+body {
+  background-color: black;
+  margin: -10px; 
+  padding: -10px;
+  width: 100%; 
+  position: relative;
+}
+
 .hero-section {
   position: center;
   width: 100%
 }
+
+.my-hero-section {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -650%);
+  font-size: 50px;
+  color: black;
+  font-style: bold;
+  font-weight: 100;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .collage {
   opacity: 70%;
   position: center;
@@ -38,13 +50,20 @@
 }
 
 .my-collage {
-  font-size: 75px;
+  font-size: 100px;
   color: white;
   font-family: "Bebas Neue", sans-serif;
+  position: absolute;  
+  top: 50%;  
+  left: 50%; 
+  transform: translate(-50%, 140%);  
+  text-align: center;  
+}
+
+.collage {
+  opacity: 50%;
   position: center;
-  text-align: center;
-  top: 20%;
-  transform: translate(5%, -400%);
+  width: 100%;
 }
 
 
