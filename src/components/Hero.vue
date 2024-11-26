@@ -5,13 +5,12 @@
 <template> 
     <body>
         <div class="herosection">
-            <img src="/src/assets/cinema.jpg" alt="Hero Image" class="hero-section">
+          <img src="/src/assets/cinema.jpg" alt="Hero Image" class="hero-section">
         </div>
-        <div class="my-hero-section">Welcome To BlockFlix </div>
-
-            <div class="collage">
+         <div class="my-hero-section">Welcome To BlockFlix </div>
+          <div class="collage">
                 <img src="/src/assets/collage.jpg" alt="Collage" class="collage">
-            <div class="my-collage"> Unlimited stories one destination </div>
+          <div class="my-collage"> Unlimited stories one destination </div>
         </div>
     </body>
 </template>
@@ -24,6 +23,16 @@ body {
   padding: -10px;
   width: 100%; 
   position: relative;
+}
+
+.nav-buttons .button {
+    background-color: #e50914;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
 }
 
 .hero-section {
