@@ -11,7 +11,6 @@
 </template>
 
 <style scoped>
-
 .header {
   background-color: black; 
   padding: 20px;  
