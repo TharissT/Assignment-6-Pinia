@@ -1,28 +1,18 @@
 <script setup>
-
 </script>
-
-<template> 
-
-<footer>
-    <p>© All Rights Reserved. BlockFlix 2024</p>
-</footer>
-
+<template>
+    <div class="footer">
+        <p>© All Rights Reserved, BlockFlix 2024</p>
+    </div>
 </template>
-
 <style scoped>
-
-footer {
-  background-color: black;
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+.footer {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
-
 </style>

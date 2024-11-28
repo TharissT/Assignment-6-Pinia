@@ -5,7 +5,10 @@
 <template> 
     <div class= header> 
         <h1> BlockFlix</h1>
-        
+    </div>
+    <div class="buttons">
+        <RouterLink to="/register" class="button">Register</RouterLink>
+        <RouterLink to="/login" class="button">Login</RouterLink>
     </div>
 
 </template>
@@ -19,6 +22,16 @@
   top: 0;  
   left: 0;  
   z-index: 1000;  
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    text-align: center; 
+    width: 60px;
+    margin: 20px;
+    padding: 10px;
+    background-color: darkgray;
 }
 
 h1 {
