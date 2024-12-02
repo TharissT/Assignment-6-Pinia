@@ -1,103 +1,133 @@
 <script setup>
-import axios from "axios";
-import { useRoute } from "vue-router";
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router'; 
+import axios from 'axios';
 
 const route = useRoute();
-const response = await axios.get(`https://api.themoviedb.org/3/movie/${route.params.id}?api_key=${import.meta.env.VITE_TMDB_KEY}&append_to_response=videos`);
-console.log(response.data);
+const movie = ref(null);
+const trailers = ref([]);
+
+const fetchMovieDetails = async () => {
+  const movieId = route.params.id;  // Get movie ID from the route
+  try {
+    const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${import.meta.env.VITE_API_KEY}`);
+    movie.value = movieResponse.data;
+
+    const trailersResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${import.meta.env.VITE_API_KEY}`);
+    trailers.value = trailersResponse.data.results;  // Store trailer data
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
+  }
+};
+
+onMounted(fetchMovieDetails);
 </script>
 
 <template>
-  <div class="movie-detail">
-    <h1 class="movie-title">{{ response.data.original_title }}</h1>
-    <p class="movie-overview">{{ response.data.overview }}</p>
-    <p class="movie-release-date">Release Date: {{ response.data.release_date }}</p>
-    <a class="movie-site" :href="response.data.homepage" target="_blank">Official Movie Site</a>
-    <img :src="`https://image.tmdb.org/t/p/w500${response.data.poster_path}`" alt="Movie Poster" class="movie-poster" />
+  <div v-if="movie" class="movie-details">
+    <h1>{{ movie.title }}</h1>
 
-    <h2 class="trailers-title">Trailers</h2>
-    <div class="trailers-container">
-      <div v-for="trailer in response.data.videos.results" :key="trailer.id" class="trailer-tile">
-        <a :href="`https://www.youtube.com/watch?v=${trailer.key}`" target="_blank">
-          <img :src="`https://img.youtube.com/vi/${trailer.key}/hqdefault.jpg`" alt="Trailer"
-            class="trailer-thumbnail" />
-        </a>
+    <!-- Movie Poster -->
+    <img 
+      :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" 
+      alt="Movie Poster" 
+      class="movie-poster" 
+    />
+
+    <div class="movie-info">
+      <ul>
+        <li><strong>Release Date:</strong> {{ movie.release_date }}</li>
+        <li><strong>Runtime:</strong> {{ movie.runtime }} minutes</li>
+        <li><strong>Genres:</strong> 
+          {{ movie.genres.map(genre => genre.name).join(', ') }}
+        </li>
+        <li><strong>Rating:</strong> {{ movie.vote_average }}</li>
+        <li><strong>Overview:</strong> {{ movie.overview }}</li>
+        <li><strong>Budget:</strong> ${{ movie.budget.toLocaleString() }}</li>
+        <li><strong>Revenue:</strong> ${{ movie.revenue.toLocaleString() }}</li>
+      </ul>
+    </div>
+
+    <!-- Movie Trailers -->
+    <div v-if="trailers.length" class="trailers">
+      <h2>Trailers</h2>
+      <div class="trailer-list">
+        <div v-for="trailer in trailers" :key="trailer.id" class="trailer-item">
+          <iframe 
+            :src="`https://www.youtube.com/embed/${trailer.key}`" 
+            title="Trailer" 
+            class="trailer-video"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div v-else>
+    <p>Loading...</p>
   </div>
 </template>
 
 <style scoped>
-.movie-detail {
+.movie-details {
+  background-color: #141414;
+  color: white;
   padding: 20px;
-  color: white;
-  background-color: #141414; /* Dark background for the detail view */
+  min-height: 100vh;
 }
 
-.movie-title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #e50914; /* Netflix red */
-}
-
-.movie-overview {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-.movie-release-date {
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-.movie-site {
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 10px 15px;
-  background-color: #e50914; /* Netflix red */
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-.movie-site:hover {
-  background-color: #f01212; /* Darker red on hover */
-}
-
-.movie-poster {
-  width: 25%;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.trailers-title {
+h1 {
   font-size: 2rem;
-  margin-top: 40px;
-  margin-bottom: 20px;
   text-align: center;
 }
 
-.trailers-container {
+.movie-poster {
+  width: 300px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+}
+
+.movie-info {
+  margin-top: 20px;
+}
+
+.movie-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.movie-info li {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.movie-info li strong {
+  color: #e50914;
+}
+
+.trailers {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.trailer-list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 15px; /* Space between trailer tiles */
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.trailer-tile {
-  background-color: #222;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.2s;
-  width: 200px; /* Fixed width for trailer tiles */
+.trailer-item {
+  width: 300px;
 }
 
-.trailer-tile:hover {
-  transform: scale(1.05); /* Scale effect on hover */
-}
-
-.trailer-thumbnail {
-  width: 100%; /* Full width of the tile */
-  height: auto; /* Maintain aspect ratio */
+.trailer-video {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
 }
 </style>
