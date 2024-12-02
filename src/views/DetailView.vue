@@ -8,13 +8,13 @@ const movie = ref(null);
 const trailers = ref([]);
 
 const fetchMovieDetails = async () => {
-  const movieId = route.params.id;  // Get movie ID from the route
+  const movieId = route.params.id;  
   try {
     const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${import.meta.env.VITE_API_KEY}`);
     movie.value = movieResponse.data;
 
     const trailersResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${import.meta.env.VITE_API_KEY}`);
-    trailers.value = trailersResponse.data.results;  // Store trailer data
+    trailers.value = trailersResponse.data.results; 
   } catch (error) {
     console.error('Error fetching movie details:', error);
   }
@@ -27,7 +27,6 @@ onMounted(fetchMovieDetails);
   <div v-if="movie" class="movie-details">
     <h1>{{ movie.title }}</h1>
 
-    <!-- Movie Poster -->
     <img 
       :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" 
       alt="Movie Poster" 
@@ -48,7 +47,6 @@ onMounted(fetchMovieDetails);
       </ul>
     </div>
 
-    <!-- Movie Trailers -->
     <div v-if="trailers.length" class="trailers">
       <h2>Trailers</h2>
       <div class="trailer-list">
