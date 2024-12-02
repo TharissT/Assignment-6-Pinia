@@ -1,11 +1,13 @@
-<script setup></script>
+<script setup>
+
+</script>
 
 <template>
   <div class="hero">
     <div class="overlay">
       <div class="navbar">
         <h1>BlockFlix</h1>
-        <a href="index.html" class="button login">Login</a>
+        <a href="login" class="button login">Login</a>
       </div>
       <div class="form-container">
         <h2>Create an Account</h2>
