@@ -1,10 +1,12 @@
 <script setup>
 </script>
+
 <template>
     <div class="footer">
         <p>© All Rights Reserved, BlockFlix 2024</p>
     </div>
 </template>
+
 <style scoped>
 .footer {
     background-color: rgb(0, 0, 0);

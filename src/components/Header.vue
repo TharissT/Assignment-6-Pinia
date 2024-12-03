@@ -27,15 +27,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black; /* Set background behind buttons to black */
+  background-color: black; 
   padding: 20px;
-  margin-top: 80px; /* Space from header */
+  margin-top: 80px; 
 }
 
 .button {
   margin: 10px;
   padding: 10px 20px;
-  background-color: #e50914; /* Red color for buttons */
+  background-color: #e50914; 
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -44,7 +44,7 @@
 }
 
 .button:hover {
-  background-color: #f40612; /* Slightly brighter red on hover */
+  background-color: #f40612; 
 }
 
 h1 {

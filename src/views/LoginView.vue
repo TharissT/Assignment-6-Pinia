@@ -45,7 +45,6 @@ const handleLogin = () => {
   position: relative;
 }
 
-
 .overlay {
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
@@ -58,7 +57,6 @@ const handleLogin = () => {
   padding: 20px;
 }
 
-
 .navbar {
   width: 100%;
   display: flex;
@@ -66,11 +64,9 @@ const handleLogin = () => {
   padding: 20px;
 }
 
-
 .navbar h1 {
   font-size: 2rem;
 }
-
 
 .navbar .register {
   background-color: #e50914;
@@ -81,23 +77,19 @@ const handleLogin = () => {
   transition: background-color 0.3s;
 }
 
-
 .navbar .register:hover {
   background-color: #f40612;
 }
-
 
 .form-container {
   text-align: center;
   margin-top: 50px;
 }
 
-
 .form-container h2 {
   font-size: 2rem;
   margin-bottom: 20px;
 }
-
 
 .input-field {
   padding: 15px;
@@ -108,12 +100,10 @@ const handleLogin = () => {
   transition: border-color 0.3s;
 }
 
-
 .input-field:focus {
   border-color: #e50914;
   outline: none;
 }
-
 
 .login {
   background-color: #e50914;
@@ -126,18 +116,15 @@ const handleLogin = () => {
   transition: background-color 0.3s, transform 0.2s;
 }
 
-
 .login:hover {
   background-color: #f40612;
   transform: scale(1.05);
 }
 
-
 @media (max-width: 600px) {
   .input-field {
     width: 90%;
   }
-
 
   .navbar h1 {
     font-size: 1.5rem;

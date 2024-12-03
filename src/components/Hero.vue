@@ -16,7 +16,6 @@
 </template>
 
 <style scoped>
-
 body {
   background-color: black;
   margin: -10px; 
@@ -44,8 +43,8 @@ body {
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -650%);
-  font-size: 50px;
+  transform: translate(-50%, -520%);
+  font-size: 40px;
   color: black;
   font-style: bold;
   font-weight: 100;
@@ -65,7 +64,7 @@ body {
   position: absolute;  
   top: 50%;  
   left: 50%; 
-  transform: translate(-50%, 140%);  
+  transform: translate(-50%, 40%);  
   text-align: center;  
 }
 
