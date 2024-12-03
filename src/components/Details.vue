@@ -13,27 +13,29 @@ const movieDetails = ref(null);
 const trailers = ref([]);
 const boxOffice = ref(null);
 
+
 async function fetchMovieDetails(id) {
   if (!id) return;
 
-  // Fetch movie details
+
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`
   );
   movieDetails.value = response.data;
 
-  // Fetch trailers
+
   const trailerResponse = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${import.meta.env.VITE_API_KEY}`
   );
   trailers.value = trailerResponse.data.results;
 
-  // Fetch box office data
+
   const boxOfficeResponse = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/revenue?api_key=${import.meta.env.VITE_API_KEY}`
   );
   boxOffice.value = boxOfficeResponse.data.revenue;
 }
+
 
 onMounted(() => fetchMovieDetails(props.id));
 watch(() => props.id, (newId) => fetchMovieDetails(newId));
@@ -50,6 +52,7 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
         />
       </div>
 
+
       <div class="details-content">
         <h1>{{ movieDetails.title }}</h1>
         <p class="overview">{{ movieDetails.overview }}</p>
@@ -62,13 +65,13 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
         </p>
         <p>Runtime: {{ movieDetails.runtime }} minutes</p>
 
-        <!-- Box Office -->
+
         <div v-if="boxOffice">
           <h2>Box Office:</h2>
           <p>${{ boxOffice.toLocaleString() }}</p>
         </div>
 
-        <!-- Trailers -->
+
         <div v-if="trailers.length > 0">
           <h2>Trailers:</h2>
           <div class="trailer-list">
@@ -88,6 +91,7 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
   </div>
 </template>
 
+
 <style scoped>
 .details-component {
   display: flex;
@@ -99,17 +103,20 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
   padding: 20px;
 }
 
+
 .poster-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+
 .movie-poster {
   width: 300px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
 }
+
 
 .details-content {
   max-width: 800px;
@@ -121,6 +128,7 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
 
+
 h1 {
   font-size: 2rem;
   margin: 0;
@@ -128,11 +136,13 @@ h1 {
   font-weight: bold;
 }
 
+
 p {
   margin: 10px 0;
   line-height: 1.6;
   font-size: 1rem;
 }
+
 
 p span {
   margin-right: 10px;
@@ -143,15 +153,18 @@ p span {
   color: #fff;
 }
 
+
 p span:hover {
   background-color: #e50914;
 }
+
 
 .details-content h2 {
   font-size: 1.2rem;
   margin-top: 20px;
   color: #bbb;
 }
+
 
 .trailer-list {
   display: flex;
@@ -160,15 +173,18 @@ p span:hover {
   flex-wrap: wrap;
 }
 
+
 .trailer-item {
   width: 300px;
 }
+
 
 .trailer-video {
   width: 100%;
   height: 200px;
   border-radius: 8px;
 }
+
 
 .overview {
   font-size: 1.1rem;

@@ -28,12 +28,10 @@ const genresList = [
 </script>
 
 <template>
-    <Header/>
+  <Header/>
   <Genres :genres="genresList" />
   <Footer/>
-
 </template>
 
 <style scoped>
-
 </style>

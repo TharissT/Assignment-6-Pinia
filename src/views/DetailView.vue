@@ -4,7 +4,6 @@ import Header from "../components/Header.vue";
 import Details from "../components/Details.vue";
 import Footer from "../components/Footer.vue";
 
-
 const route = useRoute();
 const router = useRouter();
 const movieId = route.params.id;
@@ -15,12 +14,12 @@ if (!movieId) {
 </script>
 
 <template>
-  <Header />
+  <Header/>
   <div class="details-view">
     <Details :id="movieId" />
     <button @click="router.push('/movies')">Back to Movies</button>
   </div>
-  <Footer />
+  <Footer/>
 </template>
 
 <style scoped>
@@ -67,3 +66,5 @@ button:disabled {
   cursor: not-allowed;
 }
 </style>
+
+

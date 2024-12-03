@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -25,7 +24,6 @@
 </template>
 
 <style scoped>
-
 .hero {
   background-image: url('your-image-url-here.jpg');
   background-size: cover;
@@ -137,4 +135,3 @@
   }
 }
 </style>
-
