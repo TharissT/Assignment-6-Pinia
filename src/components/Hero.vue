@@ -74,6 +74,4 @@ body {
   position: center;
   width: 100%;
 }
-
-
 </style>

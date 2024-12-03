@@ -1,4 +1,5 @@
 <script setup>
+import Header from '../components/Header.vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { ref } from 'vue';
 

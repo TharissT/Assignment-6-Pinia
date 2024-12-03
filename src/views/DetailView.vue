@@ -1,133 +1,69 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'; 
-import axios from 'axios';
+import { useRoute, useRouter } from "vue-router";
+import Header from "../components/Header.vue";
+import Details from "../components/Details.vue";
+import Footer from "../components/Footer.vue";
+
 
 const route = useRoute();
-const movie = ref(null);
-const trailers = ref([]);
+const router = useRouter();
+const movieId = route.params.id;
 
-const fetchMovieDetails = async () => {
-  const movieId = route.params.id;  // Get movie ID from the route
-  try {
-    const movieResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${import.meta.env.VITE_API_KEY}`);
-    movie.value = movieResponse.data;
-
-    const trailersResponse = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${import.meta.env.VITE_API_KEY}`);
-    trailers.value = trailersResponse.data.results;  // Store trailer data
-  } catch (error) {
-    console.error('Error fetching movie details:', error);
-  }
-};
-
-onMounted(fetchMovieDetails);
+if (!movieId) {
+  router.push("/");
+}
 </script>
 
 <template>
-  <div v-if="movie" class="movie-details">
-    <h1>{{ movie.title }}</h1>
-
-    <!-- Movie Poster -->
-    <img 
-      :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" 
-      alt="Movie Poster" 
-      class="movie-poster" 
-    />
-
-    <div class="movie-info">
-      <ul>
-        <li><strong>Release Date:</strong> {{ movie.release_date }}</li>
-        <li><strong>Runtime:</strong> {{ movie.runtime }} minutes</li>
-        <li><strong>Genres:</strong> 
-          {{ movie.genres.map(genre => genre.name).join(', ') }}
-        </li>
-        <li><strong>Rating:</strong> {{ movie.vote_average }}</li>
-        <li><strong>Overview:</strong> {{ movie.overview }}</li>
-        <li><strong>Budget:</strong> ${{ movie.budget.toLocaleString() }}</li>
-        <li><strong>Revenue:</strong> ${{ movie.revenue.toLocaleString() }}</li>
-      </ul>
-    </div>
-
-    <!-- Movie Trailers -->
-    <div v-if="trailers.length" class="trailers">
-      <h2>Trailers</h2>
-      <div class="trailer-list">
-        <div v-for="trailer in trailers" :key="trailer.id" class="trailer-item">
-          <iframe 
-            :src="`https://www.youtube.com/embed/${trailer.key}`" 
-            title="Trailer" 
-            class="trailer-video"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </div>
+  <Header />
+  <div class="details-view">
+    <Details :id="movieId" />
+    <button @click="router.push('/movies')">Back to Movies</button>
   </div>
-
-  <div v-else>
-    <p>Loading...</p>
-  </div>
+  <Footer />
 </template>
 
 <style scoped>
-.movie-details {
-  background-color: #141414;
-  color: white;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.movie-poster {
-  width: 300px;
-  height: auto;
-  display: block;
-  margin: 20px auto;
-  border-radius: 8px;
-}
-
-.movie-info {
-  margin-top: 20px;
-}
-
-.movie-info ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.movie-info li {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-}
-
-.movie-info li strong {
-  color: #e50914;
-}
-
-.trailers {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.trailer-list {
+.details-view {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  min-height: 100vh;
+  background-color: #121212;
 }
 
-.trailer-item {
-  width: 300px;
-}
-
-.trailer-video {
-  width: 100%;
-  height: 180px;
+button {
+  background-color: #e50914;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  border: none;
   border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+button:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(98, 0, 234, 0.6);
+}
+
+button:active {
+  background-color: #f40612;
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }
 </style>
