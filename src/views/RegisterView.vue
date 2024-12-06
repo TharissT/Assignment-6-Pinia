@@ -1,4 +1,17 @@
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const password = ref('')
+const password2 = ref('')
+function handleSubmit() {
+  if (password.value === password2.value) {
+    router.push("/login");
+
+   }  else { 
+    window.alert("Passwords do not match. Retry :)");
+    }
+  }
 </script>
 
 <template>
@@ -10,12 +23,12 @@
       </div>
       <div class="form-container">
         <h2>Create an Account</h2>
-        <form>
+        <form @submit.prevent="handleSubmit">
           <input type="text" placeholder="First Name" class="input-field" required>
           <input type="text" placeholder="Last name" class="input-field" required>
           <input type="email" placeholder="Email" class="input-field" required>
-          <input type="password" placeholder="Password" class="input-field" required>
-          <input type="password" placeholder="Re-enter Password" class="input-field" required>
+          <input v-model="password" type="password" placeholder="Password" class="input-field" required>
+          <input v-model="password2" type="password" placeholder="Re-enter Password" class="input-field" required>
           <button type="submit" class="button register">Register</button>
         </form>
       </div>
