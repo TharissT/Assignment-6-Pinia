@@ -8,6 +8,7 @@ const route = useRoute();
 const router = useRouter();
 const movieId = route.params.id;
 
+
 if (!movieId) {
   router.push("/");
 }

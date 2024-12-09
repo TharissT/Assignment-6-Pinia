@@ -57,10 +57,6 @@ watch(() => props.id, (newId) => fetchMovieDetails(newId));
           </span>
         </p>
         <p>Runtime: {{ movieDetails.runtime }} minutes</p>
-        <div v-if="boxOffice">
-          <h2>Box Office:</h2>
-          <p>${{ boxOffice.toLocaleString() }}</p>
-        </div>
         <div v-if="trailers.length > 0">
           <h2>Trailers:</h2>
           <div class="trailer-list">

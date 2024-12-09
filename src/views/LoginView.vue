@@ -1,12 +1,16 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useStore } from "../store"
 
+const store = useStore();
 const router = useRouter();
+const email = ref('');
 const password = ref('');
 
 const handleLogin = () => {
   if (password.value === "ilovemovies") {
+    store.email = email.value;
     router.push("/movies");
   } else {
     alert("Invalid Password");
@@ -32,7 +36,6 @@ const handleLogin = () => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .hero {

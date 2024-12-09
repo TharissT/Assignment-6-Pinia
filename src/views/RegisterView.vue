@@ -1,15 +1,23 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 const password = ref('')
 const password2 = ref('')
+const firstName = ref('')
+const lastName = ref ('')
+const email = ref ('')
 function handleSubmit() {
   if (password.value === password2.value) {
     router.push("/login");
-
+    store.firstName = firstName.value;
+    store.lastName = lastName.value;
+    store.email = email.value;
+    store.password = password.value;
+    store.password2 = password2.value;
    }  else { 
-    window.alert("Passwords do not match. Retry :)");
+    window.alert("Passwords do not match; Please re-enter)");
     }
   }
 </script>
